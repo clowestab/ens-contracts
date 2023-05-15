@@ -15,6 +15,8 @@ import {Address} from "@openzeppelin/contracts/utils/Address.sol";
 import {INameWrapper} from "../wrapper/INameWrapper.sol";
 import {ERC20Recoverable} from "../utils/ERC20Recoverable.sol";
 
+import "hardhat/console.sol";
+
 error CommitmentTooNew(bytes32 commitment);
 error CommitmentTooOld(bytes32 commitment);
 error NameNotAvailable(string name);
@@ -155,10 +157,17 @@ contract ETHRegistrarController is
         bool reverseRecord,
         uint16 ownerControlledFuses
     ) public payable override {
+        console.log("HERE1");
         IPriceOracle.Price memory price = rentPrice(name, duration);
+        console.log("HERE2");
+
         if (msg.value < price.base + price.premium) {
+            console.log("HERE3");
+
             revert InsufficientValue();
         }
+
+        console.log("HERE4");
 
         _consumeCommitment(
             name,

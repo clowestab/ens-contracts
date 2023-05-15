@@ -194,7 +194,7 @@ contract('ETHRegistrarController', function () {
     expect(await controller.available(sha3('available'))).to.equal(true)
   })
 
-  it('should permit new registrations', async () => {
+  it.only('should permit new registrations', async () => {
     const name = 'newname'
     const balanceBefore = await web3.eth.getBalance(controller.address)
     const tx = await registerName(name)

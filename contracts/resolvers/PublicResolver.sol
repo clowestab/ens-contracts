@@ -14,6 +14,8 @@ import "./Multicallable.sol";
 import {ReverseClaimer} from "../reverseRegistrar/ReverseClaimer.sol";
 import {INameWrapper} from "../wrapper/INameWrapper.sol";
 
+import "hardhat/console.sol";
+
 /**
  * A simple resolver anyone can use; only allows the owner of a node to set its
  * address.
@@ -131,6 +133,11 @@ contract PublicResolver is
             return true;
         }
         address owner = ens.owner(node);
+
+        console.log("YABBA");
+        console.logAddress(address(owner));
+        console.logAddress(address(msg.sender));
+
         if (owner == address(nameWrapper)) {
             owner = nameWrapper.ownerOf(uint256(node));
         }

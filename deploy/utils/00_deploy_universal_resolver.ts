@@ -3,7 +3,7 @@ import { DeployFunction } from 'hardhat-deploy/types'
 import { HardhatRuntimeEnvironment } from 'hardhat/types'
 
 const func: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
-  const { getNamedAccounts, deployments } = hre
+  /*const { getNamedAccounts, deployments } = hre
   const { deploy } = deployments
   const { deployer } = await getNamedAccounts()
 
@@ -18,7 +18,7 @@ const func: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
     from: deployer,
     args: [registry.address, batchGatewayURLs],
     log: true,
-  })
+  })*/
 }
 
 func.id = 'universal-resolver'

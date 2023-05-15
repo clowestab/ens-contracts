@@ -16,6 +16,8 @@ const func: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
   const { deploy } = deployments
   const { deployer, owner } = await getNamedAccounts()
 
+  console.log('there 1')
+
   const registry = await ethers.getContract('ENSRegistry', owner)
   const registrar = await ethers.getContract(
     'BaseRegistrarImplementation',
@@ -23,14 +25,23 @@ const func: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
   )
   const metadata = await ethers.getContract('StaticMetadataService', owner)
 
+  console.log('there 2')
+
   const deployArgs = {
     from: deployer,
     args: [registry.address, registrar.address, metadata.address],
     log: true,
   }
 
+  console.log('there 2b', deployArgs)
+
   const nameWrapper = await deploy('NameWrapper', deployArgs)
+
+  console.log('there 2c')
+
   if (!nameWrapper.newlyDeployed) return
+
+  console.log('there 3')
 
   if (owner !== deployer) {
     const wrapper = await ethers.getContract('NameWrapper', deployer)

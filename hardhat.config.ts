@@ -1,5 +1,6 @@
 import { exec as _exec } from 'child_process'
 
+import '@nomicfoundation/hardhat-verify'
 import '@nomiclabs/hardhat-ethers'
 import '@nomiclabs/hardhat-solhint'
 import '@nomiclabs/hardhat-truffle5'
@@ -24,7 +25,7 @@ import './tasks/seed'
 // if this file is missing. dotenv will never modify any environment variables
 // that have already been set.
 // https://github.com/motdotla/dotenv
-dotenv.config({ debug: false })
+dotenv.config({ debug: true })
 
 let real_accounts = undefined
 if (process.env.DEPLOYER_KEY) {
@@ -40,7 +41,7 @@ export const archivedDeploymentPath = './deployments/archive'
 const config: HardhatUserConfig = {
   networks: {
     hardhat: {
-      saveDeployments: false,
+      saveDeployments: true,
       tags: ['test', 'legacy', 'use_root'],
       allowUnlimitedContractSize: false,
     },
@@ -62,7 +63,7 @@ const config: HardhatUserConfig = {
       accounts: real_accounts,
     },
     goerli: {
-      url: `https://goerli.infura.io/v3/${process.env.INFURA_API_KEY}`,
+      url: `https://eth-goerli.g.alchemy.com/v2/tUTlvOS8uBoP5SqTOlV91Hb3gaVTf816`,
       tags: ['test', 'legacy', 'use_root'],
       chainId: 5,
       accounts: real_accounts,
@@ -129,6 +130,11 @@ const config: HardhatUserConfig = {
         artifacts: [archivedDeploymentPath],
       },
     ],
+  },
+  etherscan: {
+    apiKey: {
+      goerli: 'G3CDT3CR9Y8HZWEW4HQPU4SJZRCEVB6GZN',
+    },
   },
 }
 

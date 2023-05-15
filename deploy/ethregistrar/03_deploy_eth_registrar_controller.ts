@@ -34,7 +34,7 @@ const func: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
     args: [
       registrar.address,
       priceOracle.address,
-      60,
+      5,
       86400,
       reverseRegistrar.address,
       nameWrapper.address,
@@ -83,26 +83,6 @@ const func: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
       ensAddress: (await ethers.getContract('ENSRegistry')).address,
     },
   )
-  const resolver = await provider.getResolver('eth')
-  if (resolver === null) {
-    console.log(
-      `No resolver set for .eth; not setting interface ${interfaceId} for ETH Registrar Controller`,
-    )
-    return
-  }
-  const resolverContract = await ethers.getContractAt(
-    'PublicResolver',
-    resolver.address,
-  )
-  const tx3 = await resolverContract.setInterface(
-    ethers.utils.namehash('eth'),
-    interfaceId,
-    controller.address,
-  )
-  console.log(
-    `Setting ETHRegistrarController interface ID ${interfaceId} on .eth resolver (tx: ${tx3.hash})...`,
-  )
-  await tx3.wait()
 }
 
 func.tags = ['ethregistrar', 'ETHRegistrarController']

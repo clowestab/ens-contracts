@@ -16,7 +16,11 @@ const func: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
     args: [registry.address],
     log: true,
   }
+
+  console.log('RRRRRR')
   const reverseRegistrar = await deploy('ReverseRegistrar', deployArgs)
+  console.log('RRRRRR2', reverseRegistrar)
+
   if (!reverseRegistrar.newlyDeployed) return
 
   if (owner !== deployer) {
